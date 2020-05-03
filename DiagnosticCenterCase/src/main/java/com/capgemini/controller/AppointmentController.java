@@ -3,6 +3,8 @@ package com.capgemini.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.capgemini.model.DiagnosticCenter;
 
 import org.slf4j.Logger;
@@ -45,7 +47,7 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/ApproveAppointment/{id}")
-	public ResponseEntity<List<Appointment>> approveAppointment(@PathVariable("id") int centerId) {
+	public ResponseEntity<List<Appointment>> approveAppointment(@Valid @PathVariable("id") int centerId) {
 		try {
 			Optional<DiagnosticCenter> ds = diagnosticCenterService.findById(centerId);
 			if (ds.isPresent())
@@ -58,7 +60,7 @@ public class AppointmentController {
 	}
 
 	@PostMapping("/Approved")
-	public ResponseEntity<?> approved(@RequestBody Appointment appointment) {
+	public ResponseEntity<?> approved(@Valid @RequestBody Appointment appointment) {
 		try {
 			appointment.setApproved(true);
 			appointmentService.updateAppointment(appointment);
@@ -70,7 +72,7 @@ public class AppointmentController {
 	}
 
 	@PostMapping("/NotApproved")
-	public ResponseEntity<?> notApproved(@RequestBody Appointment appointment) {
+	public ResponseEntity<?> notApproved(@Valid @RequestBody Appointment appointment) {
 		try {
 			appointment.setApproved(false);
 			appointmentService.deleteAppointment(appointment.getAppointmentId());
@@ -82,7 +84,7 @@ public class AppointmentController {
 	}
 
 	@GetMapping("/AppointmentStatus/{id}")
-	public ResponseEntity<String> appointmentStatus(@PathVariable("id") long appointmentId) {
+	public ResponseEntity<String> appointmentStatus(@Valid @PathVariable("id") long appointmentId) {
 		try {
 			if (appointmentService.findById(appointmentId).isPresent())
 				return new ResponseEntity<>("Your appointment is confirmed", HttpStatus.OK);

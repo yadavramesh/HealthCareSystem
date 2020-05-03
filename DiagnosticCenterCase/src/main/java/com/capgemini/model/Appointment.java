@@ -7,14 +7,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Appointment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@NotNull
 	private long appointmentId;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "testId")
+	@NotNull
 	private Test test;
 	private Date datetime;
 	private boolean approved=false;
@@ -23,6 +26,7 @@ public class Appointment {
 	private Users users;
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "centerId")
+	@NotNull
 	private DiagnosticCenter center;
 
 
