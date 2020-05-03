@@ -38,15 +38,5 @@ public class ExceptionController {
 	{
 		return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
 	}
-	@ExceptionHandler(value=LabTestNotFoundException.class)
-	public ResponseEntity<Object> handleTestNotAdded(LabTestNotFoundException exception)
-	{
-		return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
-	}
-	@ExceptionHandler(value=TestNotRemoveException.class)
-	public ResponseEntity<Object> handleTestNotRemove(TestNotRemoveException exception)
-	{
-		return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
-	}
 
 }

@@ -12,24 +12,14 @@ public class Test {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int testId;
 	private String testName;
-	private int cost;
 	public Test() {
 		
 	}
-
-	public Test(String testName, int cost) {
+	
+	public Test(String testName) {
+		super();
 		this.testName = testName;
-		this.cost = cost;
 	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
-
 	public int getTestId() {
 		return testId;
 	}
@@ -42,13 +32,8 @@ public class Test {
 	public void setTestName(String testName) {
 		this.testName = testName;
 	}
+	
+	
+	
 
-	@Override
-	public String toString() {
-		return "Test{" +
-				"testId=" + testId +
-				", testName='" + testName + '\'' +
-				", cost=" + cost +
-				'}';
-	}
 }

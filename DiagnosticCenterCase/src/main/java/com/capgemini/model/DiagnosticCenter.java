@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Entity
 @SequenceGenerator(name = "seq", initialValue = 1000, allocationSize = 100)
@@ -18,8 +16,6 @@ public class DiagnosticCenter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
 	private long centerId;
-	@NotNull
-	@Size(min=15,max=30)
 	private String centerName;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Test> listOfTest;
@@ -65,12 +61,6 @@ public class DiagnosticCenter {
 
 	public void setAptList(List<Appointment> aptList) {
 		this.aptList = aptList;
-	}
-
-	@Override
-	public String toString() {
-		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", listOfTest=" + listOfTest
-				+ ", aptList=" + aptList + "]";
 	}
 
 
