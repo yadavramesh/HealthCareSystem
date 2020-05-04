@@ -3,6 +3,8 @@ package com.capgemini.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.capgemini.dao.DiagnosticCenterDao;
@@ -14,6 +16,7 @@ import com.capgemini.exception.WrongValueException;
 import com.capgemini.model.DiagnosticCenter;
 
 @Service
+@Transactional
 public class DiagnosticCenterServiceImp implements DiagnosticCenterService {
 	@Autowired
 	DiagnosticCenterDao diagnosticCenterDoa;
@@ -45,7 +48,7 @@ public class DiagnosticCenterServiceImp implements DiagnosticCenterService {
 		}
 
 		else {
-			throw new WrongValueException("Center Incorrect!!!!!!");
+			throw new WrongValueException("CenterId Incorrect!!!!!!");
 		}
 	}
 

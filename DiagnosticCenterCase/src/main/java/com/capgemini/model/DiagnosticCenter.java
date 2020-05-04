@@ -19,7 +19,7 @@ public class DiagnosticCenter {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
 	private long centerId;
 	@NotNull
-	@Size(min=15,max=30)
+	@Size(min=3,max=5)
 	private String centerName;
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Test> listOfTest;
@@ -31,8 +31,7 @@ public class DiagnosticCenter {
 
 	public DiagnosticCenter(String centerName, List<Test> listOfTest) {
 		super();
-		this.centerName = centerName;
-		this.listOfTest = listOfTest;
+		this.centerName = centerName; this.listOfTest = listOfTest;
 	}
 
 	public long getCenterId() {

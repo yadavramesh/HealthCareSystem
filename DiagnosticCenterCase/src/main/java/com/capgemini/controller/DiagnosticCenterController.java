@@ -1,11 +1,14 @@
 package com.capgemini.controller;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +43,21 @@ public class DiagnosticCenterController {
 		}
 	}
 
-	@PostMapping("/add")
-	public ResponseEntity<DiagnosticCenter> addDiagnosticCenter(@RequestBody DiagnosticCenter diagnosticCenter) {
+	@GetMapping("/getCenter/{centerId}")
+	public ResponseEntity<DiagnosticCenter> getCenter(@Validated @PathVariable("centerId") long centerId) {
+		Optional<DiagnosticCenter> center = service.findById(centerId);
+		try {
+			if (center.isPresent()) {
+				return new ResponseEntity<DiagnosticCenter>(center.get(),HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			throw new NullException(e.getMessage());
+		}
+		return new ResponseEntity<DiagnosticCenter>(HttpStatus.NOT_FOUND);
+	}
+
+		@PostMapping("/add")
+	public ResponseEntity<DiagnosticCenter> addDiagnosticCenter(@Validated @RequestBody DiagnosticCenter diagnosticCenter) {
 		try {
 			service.saveDiagnosticCenter(diagnosticCenter);
 			return new ResponseEntity<>(diagnosticCenter, HttpStatus.OK);
@@ -51,8 +67,8 @@ public class DiagnosticCenterController {
 		}
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<?> deleteDiagnosticCenter(@PathVariable("centerId") long centerId) {
+	@DeleteMapping("/delete/{centerId}")
+	public ResponseEntity<?> deleteDiagnosticCenter(@Validated @PathVariable("centerId") long centerId) {
 		try {
 			service.deleteDiagnosticCenter(centerId);
 			return new ResponseEntity<String>("Deleted", HttpStatus.OK);
@@ -64,7 +80,7 @@ public class DiagnosticCenterController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> updateDiagnosticCenter(DiagnosticCenter diagnosticCenter) {
+	public ResponseEntity<?> updateDiagnosticCenter(@Validated @RequestBody DiagnosticCenter diagnosticCenter) {
 		try {
 			service.updateDiagnosticCenter(diagnosticCenter);
 			return new ResponseEntity<String>("Updated", HttpStatus.OK);
